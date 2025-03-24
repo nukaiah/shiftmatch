@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require("cors");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -14,7 +15,8 @@ const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityCo
 
 
 
-const mongoURI = "mongodb://localhost:27017/ShiftMatchingDb";
+// const mongoURI = "mongodb://localhost:27017/ShiftMatchingDb"; //local
+const mongoURI = "mongodb+srv://crud:sri123@crudapp.gzvya.mongodb.net/ShiftMatch?retryWrites=true&w=majority" // Coluld
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
 mongoose.connection.on("error",err=>{
@@ -25,7 +27,7 @@ mongoose.connection.on("connected",connected=>{
 });
 
 
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
