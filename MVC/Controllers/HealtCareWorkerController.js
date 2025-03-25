@@ -115,16 +115,6 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
     }
 });
 
-healthcareworkerRouter.get('/getAll',async(req,res,next)=>{
-    const result = await healthCareWorkerSchema.find();
-    if(result){
-        sendResponse(res,true,"",result);
-    }
-    else{
-        sendResponse(res,false,"",result);
-    }
-});
-
 
 
 module.exports = healthcareworkerRouter;
