@@ -104,17 +104,46 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
             //     }
             // }
         ]);
-        if(result){
-            sendResponse(res,true,"User Data found",result);
+        if (result) {
+            sendResponse(res, true, "User Data found", result);
         }
-        else{
-            sendResponse(res,false,"Failed to found",result);
+        else {
+            sendResponse(res, false, "Failed to found", result);
         }
     } catch (error) {
-        sendErrorResponse(res,false,error.message);   
+        sendErrorResponse(res, false, error.message);
     }
 });
 
 
+healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) => {
+    try {
+        const result = await healthCareWorkerSchema.updateOne({_id:req.userId},{$set:{verificationStatus:req.body.verificationStatus}});
+        if (result) {
+            sendResponse(res, true, "Status updated successfully", result);
+        }
+        else {
+            sendResponse(res, false, "Failed to update status", {})
+        }
+    } catch (error) {
+        sendErrorResponse(res, false, error.message, {});
+
+    }
+});
+
+healthcareworkerRouter.put('/updateDetails',checkAuth,async(req,res,next)=>{
+    try {
+        const result = healthCareWorkerSchema.updateOne({_id:req.userId},{$set:req.body});
+        if(result){
+            sendResponse(res,true,"Profile Details Update",result);
+        }
+        else{
+            sendResponse(res,false,"Failed to update details",result);
+        }
+    } catch (error) {
+        sendErrorResponse(res,false,error.message,{})
+        
+    }
+});
 
 module.exports = healthcareworkerRouter;
