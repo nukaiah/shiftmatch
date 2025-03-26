@@ -145,4 +145,8 @@ healthcareworkerRouter.put('/updateDetails',checkAuth,async(req,res,next)=>{
     }
 });
 
+healthcareworkerRouter.get('/getAll',async (req,res,next)=>{
+    const result = await healthCareWorkerSchema.find();
+    sendResponse(res,true,"",result);
+});
 module.exports = healthcareworkerRouter;
