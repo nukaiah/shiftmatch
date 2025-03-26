@@ -8,6 +8,7 @@ const checkAuth = require('../MiddleWares/CheckAuth');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 
+
 healthcareworkerRouter.post('/signUp', async (req, res, next) => {
     try {
         const healthcareworkerData = req.body;
@@ -31,9 +32,6 @@ healthcareworkerRouter.post('/signUp', async (req, res, next) => {
 
 
 healthcareworkerRouter.post('/login', async (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     try {
         const emailQuery = { "email": req.body.email };
         const result = await healthCareWorkerSchema.findOne(emailQuery);
@@ -130,6 +128,7 @@ healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) =>
 
     }
 });
+
 
 healthcareworkerRouter.put('/updateDetails',checkAuth,async(req,res,next)=>{
     try {

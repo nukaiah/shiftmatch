@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 
 // const userRouter = require('./MVC/Controllers/UserRouters');
@@ -15,8 +16,8 @@ const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityCo
 
 
 
-// const mongoURI = "mongodb://localhost:27017/ShiftMatchingDb"; //local
-const mongoURI = "mongodb+srv://crud:sri123@crudapp.gzvya.mongodb.net/ShiftMatch?retryWrites=true&w=majority" // Coluld
+// const mongoURI = process.env.LOCAL_DB_URL
+const mongoURI = process.env.CLOUD_DB_URL
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
 mongoose.connection.on("error",err=>{
@@ -42,8 +43,8 @@ app.use('/api/facility',healthCareFacilityRouter )
 
 app.use('/', (req, res, next) => {
     res.status(200).json({
-        status: true,
-        message: 'sampple routing'
+        status: false,
+        message: 'Invalid path'
     });
 });
 
