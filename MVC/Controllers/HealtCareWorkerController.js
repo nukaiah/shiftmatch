@@ -1,7 +1,7 @@
 const express = require('express');
 const healthCareWorkerSchema = require('../Models/HealthCareWorkerModel');
 const { sendResponse, sendErrorResponse, sendLoginResponse } = require('../MiddleWares/Response');
-const { encrypt } = require('../MiddleWares/EncryptDecrypt');
+const { encrypt,decrypt } = require('../MiddleWares/EncryptDecrypt');
 const healthcareworkerRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../MiddleWares/CheckAuth');
