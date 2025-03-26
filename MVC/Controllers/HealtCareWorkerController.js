@@ -48,7 +48,7 @@ healthcareworkerRouter.post('/login', async (req, res, next) => {
                         expiresIn: "24h"
                     },
                 );
-                sendLoginResponse(res, false, "Login successfully", result, jwttoken);
+                sendLoginResponse(res, true, "Login successfully", result, jwttoken);
             }
             else {
                 sendResponse(res, false, "Password does not match");
