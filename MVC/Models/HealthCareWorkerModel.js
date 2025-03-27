@@ -18,8 +18,8 @@ const healthCareWorkerSchema = new mongoose.Schema(
     {
         timestamps: true,
         versionKey: false,
-        toJSON: { getters: true },
-        toObject: { getters: true }
+        toJSON: { getters: true,virtuals: false  },
+        toObject: { getters: true,virtuals: false }
     },
 );
 
