@@ -28,3 +28,4 @@ healthCareWorkerSchema.index({ mobileNumber: 1 });
 
 
 module.exports = mongoose.model('Healthcareworker', healthCareWorkerSchema);
+
