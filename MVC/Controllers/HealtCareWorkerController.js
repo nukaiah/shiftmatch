@@ -106,8 +106,6 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
             result.forEach(user => {
                 user.email = decrypt(user.email);
                 user.mobileNumber = decrypt(user.mobileNumber);
-                user.bankData.accountNumber = decrypt(user.bankData.accountNumber);
-                user.bankData.ifscCode = decrypt(user.bankData.ifscCode);
             });
         }        ;
         if (result) {
