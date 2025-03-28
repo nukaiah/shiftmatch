@@ -103,11 +103,14 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
             // }
         ]);
         if (result.length > 0) {
-            result.forEach(user => {
-                user.email = decrypt(user.email);
-                user.mobileNumber = decrypt(user.mobileNumber);
+            var decodedData = result[0];
+            decodedData.email = decrypt(decodedData.email);
+            decodedData.mobileNumber = decrypt(decodedData.mobileNumber);
+            decodedData.bankData.forEach(user => {
+                user.accountNumber = decrypt(user.accountNumber);
+                user.ifscCode = decrypt(user.ifscCode);
             });
-        }        ;
+        }   
         if (result) {
             sendResponse(res, true, "User Data found", result);
         }
