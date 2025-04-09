@@ -7,7 +7,7 @@ const healthCareFacilityRouter = express.Router();
 
 healthCareFacilityRouter.post('/register', checkAuth, async (req, res, next) => {
     try {
-        if (req.roleId == 1) {
+        if (req.roleId === 1) {
             const body = req.body;
             const userId = { "addedBy": new mongoose.Types.ObjectId(req.userId) };
             const healthCareFacilityData = { ...userId, ...body };
@@ -20,11 +20,11 @@ healthCareFacilityRouter.post('/register', checkAuth, async (req, res, next) => 
             }
         }
         else {
-            sendResponse(res, false, "You are not a super admin to create a organization", result);
+            sendResponse(res, false, "You are not a super admin to create a organization", {});
         }
 
     } catch (error) {
-        sendErrorResponse(res, false, error.message);
+        sendErrorResponse(res, false, error.message,{});
     }
 });
 

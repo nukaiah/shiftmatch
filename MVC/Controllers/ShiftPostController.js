@@ -8,7 +8,7 @@ shiftpostRouter.post('/postShift',checkAuth,async (req,res,next)=>{
     try {
         const roleId = req.roleId;
         console.log(roleId);
-        if(roleId===2){
+        // if(roleId===2){
             const bodyData = req.body;
             const userId = {"postedBy":req.userId};
             const shiftpostData = {...userId, ...bodyData};
@@ -19,10 +19,10 @@ shiftpostRouter.post('/postShift',checkAuth,async (req,res,next)=>{
             else{
                 sendResponse(res,false,"Failed to post a Shift",result);
             }
-        }
-        else{
-            sendResponse(res,false,"You are not an admin.You can not post the shift");
-        }
+        // }
+        // else{
+        //     sendResponse(res,false,"You are not an admin.You can not post the shift");
+        // }
     } catch (error) {
         sendErrorResponse(res, false, error.message);
     }

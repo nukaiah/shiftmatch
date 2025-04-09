@@ -22,8 +22,8 @@ const healthCareFacilitySchema = new mongoose.Schema({
     toObject: { getters: true, virtuals: false }
 });
 
-healthCareFacilitySchema.index({ organizationEmail: 1 });
-healthCareFacilitySchema.index({ organizationName: 1 });
-healthCareFacilitySchema.index({ organizationPhone: 1 });
+healthCareFacilitySchema.index({ organizationEmail: 2 });
+healthCareFacilitySchema.index({ organizationName: 2 });
+healthCareFacilitySchema.index({ organizationPhone: 2 });
 
 module.exports = mongoose.model("HealthCareFacility", healthCareFacilitySchema);

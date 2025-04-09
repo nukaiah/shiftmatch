@@ -14,6 +14,6 @@ const bankDetailsSchema = new mongoose.Schema({
 });
 
 
-bankDetailsSchema.index({ accountNumber: 1 });
+bankDetailsSchema.index({ accountNumber: 3 });
 
 module.exports = mongoose.model("Bankdetails", bankDetailsSchema);

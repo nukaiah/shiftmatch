@@ -16,8 +16,8 @@ const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityCo
 
 
 
-// const mongoURI = process.env.LOCAL_DB_URL
-const mongoURI = process.env.CLOUD_DB_URL
+// const mongoURI = process.env.CLOUD_DB_URL
+const mongoURI = process.env.LOCAL_DB_URL;
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
 mongoose.connection.on("error",err=>{
@@ -34,12 +34,13 @@ app.use(bodyParser.json());
 
 // app.use('/api/user', userRouter);
 
-app.use('/api/shift',shiftpostRouter);
+
 app.use('/api/healthCareWorker',healthcareworkerRouter);
 app.use('/api/experiance',experienceRouter);
 app.use('/api/qualification', qualificationRouter);
 app.use('/api/bankDetails',bankDetailsRouter);
-app.use('/api/facility',healthCareFacilityRouter )
+app.use('/api/facility',healthCareFacilityRouter);
+app.use('/api/shift',shiftpostRouter);
 
 app.use('/', (req, res, next) => {
     res.status(200).json({

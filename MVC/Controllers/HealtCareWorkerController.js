@@ -1,7 +1,7 @@
 const express = require('express');
 const healthCareWorkerSchema = require('../Models/HealthCareWorkerModel');
 const { sendResponse, sendErrorResponse, sendLoginResponse } = require('../MiddleWares/Response');
-const { encrypt,decrypt } = require('../MiddleWares/EncryptDecrypt');
+const { encrypt, decrypt } = require('../MiddleWares/EncryptDecrypt');
 const healthcareworkerRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../MiddleWares/CheckAuth');
@@ -110,7 +110,7 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
                 user.accountNumber = decrypt(user.accountNumber);
                 user.ifscCode = decrypt(user.ifscCode);
             });
-        }   
+        }
         if (result) {
             sendResponse(res, true, "User Data found", result);
         }
@@ -125,7 +125,7 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
 
 healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) => {
     try {
-        const result = await healthCareWorkerSchema.updateOne({_id:req.userId},{$set:{verificationStatus:req.body.verificationStatus}});
+        const result = await healthCareWorkerSchema.updateOne({ _id: req.userId }, { $set: { verificationStatus: req.body.verificationStatus } });
         if (result) {
             sendResponse(res, true, "Status updated successfully", result);
         }
@@ -139,23 +139,27 @@ healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) =>
 });
 
 
-healthcareworkerRouter.put('/updateDetails',checkAuth,async(req,res,next)=>{
+healthcareworkerRouter.put('/updateDetails', checkAuth, async (req, res, next) => {
     try {
-        const result = healthCareWorkerSchema.updateOne({_id:req.userId},{$set:req.body});
-        if(result){
-            sendResponse(res,true,"Profile Details Update",result);
+        const result = healthCareWorkerSchema.updateOne({ _id: req.userId }, { $set: req.body });
+        if (result) {
+            sendResponse(res, true, "Profile Details Update", result);
         }
-        else{
-            sendResponse(res,false,"Failed to update details",result);
+        else {
+            sendResponse(res, false, "Failed to update details", result);
         }
     } catch (error) {
-        sendErrorResponse(res,false,error.message,{})
-        
+        sendErrorResponse(res, false, error.message, {})
+
     }
 });
 
-healthcareworkerRouter.get('/getAll',async (req,res,next)=>{
+
+healthcareworkerRouter.get('/getAll', async (req, res, next) => {
     const result = await healthCareWorkerSchema.find();
-    sendResponse(res,true,"",result);
+    sendResponse(res, true, "", result);
 });
+
+
+
 module.exports = healthcareworkerRouter;
