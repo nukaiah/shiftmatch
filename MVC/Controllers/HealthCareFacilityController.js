@@ -4,6 +4,7 @@ const { sendResponse, sendErrorResponse } = require('../MiddleWares/Response');
 const healthCareFacilitySchema = require('../Models/HealthCareFacilityModels');
 const mongoose = require('mongoose');
 const healthCareFacilityRouter = express.Router();
+const {decrypt} = require('../MiddleWares/EncryptDecrypt');
 
 healthCareFacilityRouter.post('/register', checkAuth, async (req, res, next) => {
     try {
@@ -31,11 +32,15 @@ healthCareFacilityRouter.post('/register', checkAuth, async (req, res, next) => 
 healthCareFacilityRouter.post('/getFacility', checkAuth, async (req, res, next) => {
     try {
         const query = { "addedBy": new mongoose.Types.ObjectId(req.userId) };
-        console.log(query);
         const result = await healthCareFacilitySchema.aggregate([
-            { $match: query }
+            { $match: query },
+            { $project: { organizationPassword: 0 } }
         ]);
-        if (result) {
+        if (result.length > 0) {
+            result.forEach(facility => {
+                facility.organizationEmail = decrypt(facility.organizationEmail);
+                facility.organizationPhone = decrypt(facility.organizationPhone);
+            });
             sendResponse(res, true, "Facility founded successfully.", result);
         }
         else {
