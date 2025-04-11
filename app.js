@@ -16,8 +16,8 @@ const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityCo
 
 
 
-// const mongoURI = process.env.CLOUD_DB_URL
-const mongoURI = process.env.LOCAL_DB_URL;
+const mongoURI = process.env.CLOUD_DB_URL
+// const mongoURI = process.env.LOCAL_DB_URL;
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
 mongoose.connection.on("error",err=>{

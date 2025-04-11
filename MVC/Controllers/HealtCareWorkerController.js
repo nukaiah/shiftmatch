@@ -5,14 +5,14 @@ const { encrypt, decrypt } = require('../MiddleWares/EncryptDecrypt');
 const healthcareworkerRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../MiddleWares/CheckAuth');
-const { default: mongoose } = require('mongoose');
+const { default: mongoose, set } = require('mongoose');
 require('dotenv').config();
 
 
 healthcareworkerRouter.post('/signUp', async (req, res, next) => {
     try {
         const healthcareworkerData = req.body;
-        const result = await healthCareWorkerSchema.create(healthcareworkerData);
+        const result = await healthCareWorkerSchema.insertOne(healthcareworkerData);
         if (result) {
             sendResponse(res, true, `Hey ${req.body.fullName} your account created successfully.Thank you.`, result);
         }
@@ -156,10 +156,36 @@ healthcareworkerRouter.put('/updateDetails', checkAuth, async (req, res, next) =
 
 
 healthcareworkerRouter.get('/getAll', async (req, res, next) => {
-    const result = await healthCareWorkerSchema.find();
-    sendResponse(res, true, "", result);
+    try {
+        const result = await healthCareWorkerSchema.find();
+        if (result) {
+            sendResponse(res, true, "Users found sucessfully", result);
+        }
+        else {
+            sendResponse(res, false, "Failed to find users", result);
+        }
+    } catch (error) {
+        sendErrorResponse(res, false, error.message, {});
+
+    }
+
 });
 
+healthcareworkerRouter.post('/updateStatus',async(req,res,next)=>{
+    try {
+        var query = {_id:req.body.id};
+        var updateData = {"verificationStatus":req.body.verificationStatus}
+        const result = await healthCareWorkerSchema.findByIdAndUpdate(query,{$set:updateData},{upsert:true});
+        if(result){
+            sendResponse(res,true,"User status Updated",result);
+        }
+        else{
+            sendResponse(res,false,"Failed to update status",result);
+        }
+    } catch (error) {
+        sendErrorResponse(res,false,error.message,{});
+    }
+});
 
 
 module.exports = healthcareworkerRouter;
