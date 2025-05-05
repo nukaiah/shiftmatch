@@ -13,11 +13,13 @@ const shiftpostRouter = require('./MVC/Controllers/ShiftPostController');
 const healthcareworkerRouter = require('./MVC/Controllers/HealtCareWorkerController');
 const bankDetailsRouter = require('./MVC/Controllers/BankDetailsController');
 const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityController');
+const testRouter = require('./MVC/Controllers/TestController');
 
 
 
-const mongoURI = process.env.CLOUD_DB_URL
+const mongoURI = process.env.CLOUD_DB_URL;
 // const mongoURI = process.env.LOCAL_DB_URL;
+
 mongoose.set("strictQuery", false);
 mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
 mongoose.connection.on("error",err=>{
@@ -41,6 +43,7 @@ app.use('/api/qualification', qualificationRouter);
 app.use('/api/bankDetails',bankDetailsRouter);
 app.use('/api/facility',healthCareFacilityRouter);
 app.use('/api/shift',shiftpostRouter);
+app.use('/api/Test',testRouter)
 
 app.use('/', (req, res, next) => {
     res.status(200).json({
