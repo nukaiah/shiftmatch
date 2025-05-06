@@ -67,6 +67,7 @@ testRouter.post('/pagination',async (req,res,next)=>{
         const limit = 10;
         const skip = (page - 1) * limit;
         var result = await userModel.find().skip(skip).limit(limit);   
+        console.log(result);
         if(result){
             res.status(200).json({
                 status:true,
@@ -82,11 +83,12 @@ testRouter.post('/pagination',async (req,res,next)=>{
             });
         }
     } catch (error) {
-        res.status(500).json({
+        res.status(200).json({
             status:true,
             message:"No users found",
             data:result.message
         });
+
     }
 });
 
