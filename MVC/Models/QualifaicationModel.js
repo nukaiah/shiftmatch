@@ -1,4 +1,4 @@
-const mongoose  = require("mongoose");
+import mongoose from "mongoose";
 
 const qualificationSchema = new mongoose.Schema({
     userId:{type:mongoose.Schema.Types.ObjectId,required: true},
@@ -11,4 +11,4 @@ const qualificationSchema = new mongoose.Schema({
     description: { type: String } ,// Optional: Additional details
 },{ timestamps: true });
 
-module.exports = mongoose.model("Qualifications", qualificationSchema);
+export default mongoose.model("Qualifications", qualificationSchema);

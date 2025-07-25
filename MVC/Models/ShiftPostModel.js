@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const shiftPostSchema = new mongoose.Schema({
     date: { type: Date, required: true },
@@ -9,4 +9,5 @@ const shiftPostSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const ShiftPost = mongoose.model('Shifts', shiftPostSchema);
-module.exports = ShiftPost;
+
+export default ShiftPost;

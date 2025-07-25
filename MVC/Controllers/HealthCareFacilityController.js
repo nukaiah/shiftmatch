@@ -1,10 +1,10 @@
-const express = require('express');
-const checkAuth = require('../MiddleWares/CheckAuth');
-const { sendResponse, sendErrorResponse } = require('../MiddleWares/Response');
-const healthCareFacilitySchema = require('../Models/HealthCareFacilityModels');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
+import { sendResponse, sendErrorResponse } from '../MiddleWares/Response.js';
+import { encrypt,decrypt } from '../MiddleWares/EncryptDecrypt.js';
+import healthCareFacilitySchema from '../Models/HealthCareFacilityModels.js';
 const healthCareFacilityRouter = express.Router();
-const {decrypt} = require('../MiddleWares/EncryptDecrypt');
 
 healthCareFacilityRouter.post('/register', checkAuth, async (req, res, next) => {
     try {
@@ -51,4 +51,4 @@ healthCareFacilityRouter.post('/getFacility', checkAuth, async (req, res, next) 
     }
 })
 
-module.exports = healthCareFacilityRouter;
+export default healthCareFacilityRouter;

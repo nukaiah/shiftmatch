@@ -1,7 +1,7 @@
-const express = require('express');
-const shiftPostSchema = require('../Models/ShiftPostModel');
-const { sendResponse, sendErrorResponse } = require('../MiddleWares/Response');
-const checkAuth = require('../MiddleWares/CheckAuth');
+import express from 'express';
+import shiftPostSchema from '../Models/ShiftPostModel.js';
+import { sendResponse, sendErrorResponse } from '../MiddleWares/Response.js';
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
 const shiftpostRouter = express.Router();
 
 shiftpostRouter.post('/postShift',checkAuth,async (req,res,next)=>{
@@ -46,4 +46,4 @@ shiftpostRouter.post('/getShits',checkAuth,async (req,res,next)=>{
 });
 
 
-module.exports = shiftpostRouter;
+export default shiftpostRouter;

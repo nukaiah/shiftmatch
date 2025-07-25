@@ -1,12 +1,13 @@
-const crypto = require('crypto');
-require('dotenv').config();
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 const algorithm = 'aes-256-cbc';
 const key = Buffer.from(process.env.ENCRYPT_DECRYPT_KEY, 'utf-8'); // 32-byte key
 const iv = Buffer.from('0123456789012345', 'utf-8'); // 16-byte IV
 
 // Encrypt Function
-function encrypt(text) {
+export function encrypt(text) {
     let cipher = crypto.createCipheriv(algorithm, key, iv);
     let encrypted = cipher.update(text, 'utf-8', 'hex');
     encrypted += cipher.final('hex');
@@ -14,7 +15,7 @@ function encrypt(text) {
 }
 
 // Decrypt Function
-function decrypt(encryptedText) {
+export function decrypt(encryptedText) {
     let decipher = crypto.createDecipheriv(algorithm, key, iv);
     let decrypted = decipher.update(encryptedText, 'hex', 'utf-8');
     decrypted += decipher.final('utf-8');
@@ -30,7 +31,3 @@ const decryptedText = decrypt(encryptedText);
 console.log("Decrypted:", decryptedText);
 
 
-
-
-
-module.exports = { encrypt, decrypt };

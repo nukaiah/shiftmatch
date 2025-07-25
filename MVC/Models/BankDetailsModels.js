@@ -1,5 +1,6 @@
-const { decrypt, encrypt } = require('../MiddleWares/EncryptDecrypt');
-const mongoose = require('mongoose');
+import { encrypt, decrypt } from '../MiddleWares/EncryptDecrypt.js';
+
+import mongoose from 'mongoose';
 
 const bankDetailsSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
@@ -16,4 +17,4 @@ const bankDetailsSchema = new mongoose.Schema({
 
 bankDetailsSchema.index({ accountNumber: 3 });
 
-module.exports = mongoose.model("Bankdetails", bankDetailsSchema);
+export default mongoose.model("Bankdetails", bankDetailsSchema);

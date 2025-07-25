@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { encrypt, decrypt } = require('../MiddleWares/EncryptDecrypt')
+import mongoose from 'mongoose';
+import { encrypt,decrypt } from '../MiddleWares/EncryptDecrypt.js';
 
 const healthCareFacilitySchema = new mongoose.Schema({
 
@@ -22,8 +22,6 @@ const healthCareFacilitySchema = new mongoose.Schema({
     toObject: { getters: true, virtuals: false }
 });
 
-healthCareFacilitySchema.index({ organizationEmail: 2 });
-healthCareFacilitySchema.index({ organizationName: 2 });
-healthCareFacilitySchema.index({ organizationPhone: 2 });
+healthCareFacilitySchema.index({ organizationEmail: 2,organizationName: 2, organizationPhone: 2 });
 
-module.exports = mongoose.model("HealthCareFacility", healthCareFacilitySchema);
+export default mongoose.model("HealthCareFacility", healthCareFacilitySchema);

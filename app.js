@@ -1,55 +1,54 @@
-const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config(); 
+
 const app = express();
-const cors = require("cors");
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-require('dotenv').config();
 
 
-// const userRouter = require('./MVC/Controllers/UserRouters');
-const qualificationRouter = require('./MVC/Controllers/QualificationController');
-const experienceRouter = require('./MVC/Controllers/ExperianceController');
-const shiftpostRouter = require('./MVC/Controllers/ShiftPostController');
-const healthcareworkerRouter = require('./MVC/Controllers/HealtCareWorkerController');
-const bankDetailsRouter = require('./MVC/Controllers/BankDetailsController');
-const healthCareFacilityRouter = require('./MVC/Controllers/HealthCareFacilityController');
-const testRouter = require('./MVC/Controllers/TestController');
-
-
-
-const mongoURI = process.env.CLOUD_DB_URL;
-// const mongoURI = process.env.LOCAL_DB_URL;
+const mongoURI = process.env.CLOUD_DB_URL_TEST;
 
 mongoose.set("strictQuery", false);
-mongoose.connect(mongoURI,{useNewUrlParser: true,useUnifiedTopology: true,});
-mongoose.connection.on("error",err=>{
-    console.log("Failed to Connect");
-});
-mongoose.connection.on("connected",connected=>{
-    console.log("Connected Succeffully");
-});
 
+try {
+  await mongoose.connect(mongoURI);
+  console.log("Connected Successfully");
+} catch (err) {
+  console.error("Failed to Connect");
+}
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use('/api/user', userRouter);
+
+
+
+import healthcareworkerRouter from './MVC/Controllers/HealtCareWorkerController.js';
+import qualificationRouter from './MVC/Controllers/QualificationController.js';
+import experienceRouter from './MVC/Controllers/ExperianceController.js';
+import bankDetailsRouter from './MVC/Controllers/BankDetailsController.js';
+import shiftpostRouter from './MVC/Controllers/ShiftPostController.js';
+import healthCareFacilityRouter from './MVC/Controllers/HealthCareFacilityController.js';
+import testRouter from './MVC/Controllers/TestController.js';
 
 
 app.use('/api/healthCareWorker',healthcareworkerRouter);
-app.use('/api/experiance',experienceRouter);
 app.use('/api/qualification', qualificationRouter);
+app.use('/api/experiance',experienceRouter);
 app.use('/api/bankDetails',bankDetailsRouter);
-app.use('/api/facility',healthCareFacilityRouter);
 app.use('/api/shift',shiftpostRouter);
-app.use('/api/Test',testRouter)
+app.use('/api/facility',healthCareFacilityRouter);
+app.use('/api/Test',testRouter);
 
-app.use('/', (req, res, next) => {
-    res.status(200).json({
-        status: false,
-        message: 'Invalid path'
-    });
+app.use('/', (req, res) => {
+  res.status(200).json({
+    status: false,
+    message: 'Invalid path',
+  });
 });
 
-module.exports = app;
+export default app;

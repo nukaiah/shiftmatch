@@ -1,5 +1,5 @@
-const express = require('express');
-const userModel = require('../Models/HealthCareWorkerModel');
+import express from 'express';
+import userModel from '../Models/HealthCareWorkerModel.js';
 const testRouter = express.Router();
 
 testRouter.get('/getTest', async (req, res, next) => {
@@ -9,7 +9,6 @@ testRouter.get('/getTest', async (req, res, next) => {
             res.status(200).json({
                 status: true,
                 message: "Users data found successfully",
-                length: result.length,
                 data: result
             });
         }
@@ -64,10 +63,9 @@ testRouter.delete('/deleteTest', async (req, res, next) => {
 testRouter.post('/pagination',async (req,res,next)=>{
     try {
         const page = parseInt(req.body.pageCount) || 1;
-        const limit = 10;
+        const limit = 20;
         const skip = (page - 1) * limit;
         var result = await userModel.find().skip(skip).limit(limit);   
-        console.log(result);
         if(result){
             res.status(200).json({
                 status:true,
@@ -92,4 +90,30 @@ testRouter.post('/pagination',async (req,res,next)=>{
     }
 });
 
-module.exports = testRouter;
+testRouter.get('/myParams',async(req,res,next)=>{
+    try {
+        console.log(req.params);
+        var result = await userModel.find({_id:req.params.id});
+        if(result){
+            res.status(200).json({
+                status:true,
+                message:"User data found",
+                data:result
+            });
+        }
+        else{
+            res.status(200).json({
+                status:false,
+                message:"User data found",
+                data:result
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            status:false,
+            message:error.message,
+        }); 
+    }
+});
+
+export default testRouter;

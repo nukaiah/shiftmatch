@@ -1,12 +1,14 @@
-const express = require('express');
-const healthCareWorkerSchema = require('../Models/HealthCareWorkerModel');
-const { sendResponse, sendErrorResponse, sendLoginResponse } = require('../MiddleWares/Response');
-const { encrypt, decrypt } = require('../MiddleWares/EncryptDecrypt');
+import express from 'express';
+import mongoose from 'mongoose';
+import healthCareWorkerSchema from '../Models/HealthCareWorkerModel.js';
+import { encrypt,decrypt } from '../MiddleWares/EncryptDecrypt.js';
+import { sendResponse, sendErrorResponse, sendLoginResponse } from '../MiddleWares/Response.js';
+import jwt  from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config(); 
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
 const healthcareworkerRouter = express.Router();
-const jwt = require('jsonwebtoken');
-const checkAuth = require('../MiddleWares/CheckAuth');
-const { default: mongoose, set } = require('mongoose');
-require('dotenv').config();
+
 
 
 healthcareworkerRouter.post('/signUp', async (req, res, next) => {
@@ -94,13 +96,6 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
                     as: "bankData",
                 },
             },
-            // {
-            //     $project: {
-            //         "qualificationDetails.userId": 0,
-            //         "expreianceDetails.userId": 0,
-            //         "bankData.userId": 0
-            //     }
-            // }
         ]);
         if (result.length > 0) {
             var decodedData = result[0];
@@ -110,6 +105,7 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
                 user.accountNumber = decrypt(user.accountNumber);
                 user.ifscCode = decrypt(user.ifscCode);
             });
+            delete decodedData.password;
         }
         if (result) {
             sendResponse(res, true, "User Data found", result);
@@ -188,4 +184,4 @@ healthcareworkerRouter.post('/updateStatus',async(req,res,next)=>{
 });
 
 
-module.exports = healthcareworkerRouter;
+export default healthcareworkerRouter;

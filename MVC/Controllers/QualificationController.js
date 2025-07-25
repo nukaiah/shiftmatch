@@ -1,8 +1,9 @@
-const express = require('express');
-const qualificationSchema = require('../Models/QualifaicationModel');
-const { sendResponse, sendErrorResponse } = require('../MiddleWares/Response');
-const checkAuth = require('../MiddleWares/CheckAuth');
-const { default: mongoose } = require('mongoose');
+// const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
+import qualificationSchema from '../Models/QualifaicationModel.js';
+import { sendResponse, sendErrorResponse } from '../MiddleWares/Response.js';
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
 const qualificationRouter = express.Router();
 
 
@@ -40,4 +41,4 @@ qualificationRouter.post('/getById',checkAuth,async (req,res,next)=>{
 });
 
 
-module.exports = qualificationRouter;
+export default qualificationRouter;

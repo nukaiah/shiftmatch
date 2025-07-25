@@ -1,8 +1,8 @@
-const express = require('express');
-const experienceSchema = require('../Models/ExperianceModel');
-const { sendResponse,sendErrorResponse } = require('../MiddleWares/Response');
-const checkAuth = require('../MiddleWares/CheckAuth');
-const { default: mongoose } = require('mongoose');
+import express from 'express';
+import experienceSchema from '../Models/ExperianceModel.js';
+import { sendResponse,sendErrorResponse } from '../MiddleWares/Response.js';
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
+import mongoose from 'mongoose';
 const experienceRouter = express.Router();
 
 
@@ -45,4 +45,4 @@ experienceRouter.get('/getAll',async (req,res,next)=>{
 
 })
 
-module.exports = experienceRouter;
+export default experienceRouter;

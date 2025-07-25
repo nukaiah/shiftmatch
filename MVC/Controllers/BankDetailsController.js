@@ -1,8 +1,8 @@
-const express = require('express');
-const bankDetailsSchema = require('../Models/BankDetailsModels');
-const { sendResponse, sendErrorResponse } = require('../MiddleWares/Response');
-const checkAuth = require('../MiddleWares/CheckAuth');
-const {mongoose } = require('mongoose');
+import express from 'express';
+import bankDetailsSchema from '../Models/BankDetailsModels.js';
+import { sendResponse,sendErrorResponse } from '../MiddleWares/Response.js';
+import { checkAuth } from '../MiddleWares/CheckAuth.js';
+import mongoose from 'mongoose';
 const bankDetailsRouter = express.Router();
 
 
@@ -39,4 +39,4 @@ bankDetailsRouter.post('/getById',checkAuth,async (req,res,next)=>{
     }
 });
 
-module.exports = bankDetailsRouter;
+export default bankDetailsRouter;
