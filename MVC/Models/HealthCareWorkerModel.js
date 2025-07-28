@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 import { encrypt, decrypt } from '../MiddleWares/EncryptDecrypt.js';
 
-
 const healthCareWorkerSchema = new mongoose.Schema(
     {
-        roleId: { type: Number, required: true,enum:[1,3], default: 3 },
+        roleId: { type: Number, required: true, enum: [1, 3], default: 3 },
         fullName: { type: String, required: true },
         email: { type: String, required: true, unique: true, lowercase: true, set: encrypt, get: decrypt },
-        mobileNumber: { type: String, required: true, unique: true, trim: true ,set: encrypt, get: decrypt },
+        mobileNumber: { type: String, required: true, unique: true, trim: true, set: encrypt, get: decrypt },
         gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
         dob: { type: Date },
         password: { type: String, set: encrypt },
@@ -19,12 +18,12 @@ const healthCareWorkerSchema = new mongoose.Schema(
     {
         timestamps: true,
         versionKey: false,
-        toJSON: { getters: true,virtuals: false  },
-        toObject: { getters: true,virtuals: false }
+        toJSON: { getters: true, virtuals: false },
+        toObject: { getters: true, virtuals: false }
     },
 );
 
-healthCareWorkerSchema.index({ email: 1,mobileNumber:1 });
+healthCareWorkerSchema.index({ email: 1, mobileNumber: 1 });
 
 export default mongoose.model('Healthcareworker', healthCareWorkerSchema);
 
