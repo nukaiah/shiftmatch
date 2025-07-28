@@ -47,8 +47,8 @@ shiftpostRouter.post('/getShits',checkAuth,async (req,res,next)=>{
 
 shiftpostRouter.post("/getAllShifts",checkAuth,async (req,res,next)=>{
     try {
-        var response = await  shiftPostSchema.find();
-        if(response){
+        var result = await  shiftPostSchema.find();
+        if(result){
             sendResponse(res,true,"Shifts found successfully",result);
         }
         else{
