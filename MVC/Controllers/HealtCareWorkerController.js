@@ -68,6 +68,7 @@ healthcareworkerRouter.post('/login', async (req, res, next) => {
 healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
     try {
         const query = { _id: new mongoose.Types.ObjectId(req.userId) };
+        console.log(query);
         const result = await healthCareWorkerSchema.aggregate([
             {
                 $match: query
@@ -108,6 +109,7 @@ healthcareworkerRouter.post('/getById', checkAuth, async (req, res, next) => {
             delete decodedData.password;
         }
         if (result) {
+            console.log(result);
             sendResponse(res, true, "User Data found", result);
         }
         else {
