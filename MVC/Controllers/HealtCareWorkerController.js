@@ -137,7 +137,7 @@ healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) =>
 });
 
 
-healthcareworkerRouter.put('/updateDetails', checkAuth, async (req, res, next) => {
+healthcareworkerRouter.post('/updateDetails', checkAuth, async (req, res, next) => {
     try {
         const result = healthCareWorkerSchema.updateOne({ _id: req.userId }, { $set: req.body });
         if (result) {
@@ -148,7 +148,6 @@ healthcareworkerRouter.put('/updateDetails', checkAuth, async (req, res, next) =
         }
     } catch (error) {
         sendErrorResponse(res, false, error.message, {})
-
     }
 });
 
