@@ -139,7 +139,6 @@ healthcareworkerRouter.put('/updateStatus', checkAuth, async (req, res, next) =>
 
 healthcareworkerRouter.post('/updateDetails', checkAuth, async (req, res, next) => {
     try {
-        console.log(req.body);
         const result = await healthCareWorkerSchema.updateOne({ _id: req.userId }, { $set: req.body });
         if (result) {
             sendResponse(res, true, "Profile Details Update", result);
