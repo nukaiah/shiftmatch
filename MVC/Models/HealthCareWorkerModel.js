@@ -7,7 +7,7 @@ const healthCareWorkerSchema = new mongoose.Schema(
         fullName: { type: String, required: true },
         email: { type: String, required: true, unique: true, lowercase: true, set: encrypt, get: decrypt },
         mobileNumber: { type: String, required: true, unique: true, trim: true, set: encrypt, get: decrypt },
-        gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
+        gender: { type: String, enum: ["Male", "Female", "Other"]},
         password: { type: String, set: encrypt },
         dob: { type: Date },
         imageUrl: { type: String },
