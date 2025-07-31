@@ -8,20 +8,30 @@ const experienceRouter = express.Router();
 
 experienceRouter.post('/add', checkAuth, async (req, res, next) => {
     try {
+
         const bodyData = req.body;
-        const experienceData = Object.entries(bodyData)
-            .filter(([key]) => !isNaN(key))
-            .map(([_, exp]) => ({
-                ...exp,
-                userId: req.userId
-            }));
-        console.log(experienceData);
-        const result = await experienceSchema.insertMany(experienceData);
-        if (result) {
-        sendResponse(res, true, "Experiance added successfully", result);
+        const userId = { "userId": req.userId }
+        const experienceData = { ...userId, ...bodyData };
+
+        const recordId = req.body._id;
+
+        if(recordId===null||recordId===""){
+            const result = await experienceSchema.create(experienceData);
+            if(result){
+                sendResponse(res, true, "Experiance added successfully", result);
+            }
+            else{
+                sendResponse(res, false, "Failed to add experiance", result);
+            }
         }
-        else {
-        sendResponse(res, false, "Failed to add experiance", result);
+        else{
+            const result = await experienceSchema.updateOne({ _id: recordId }, { $set: experienceData });
+              if(result){
+                sendResponse(res, true, "Experiance updated successfully", result);
+            }
+            else{
+                sendResponse(res, false, "Failed to update experiance", result);
+            }
         }
     } catch (error) {
         sendErrorResponse(res, false, error.message);

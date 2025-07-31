@@ -24,7 +24,7 @@ bankDetailsRouter.post('/add', checkAuth, async (req, res, next) => {
 
         }
         else {
-            const result = await bankDetailsSchema.updateOne({ _id: banckRecordId }, { $set: req.body });
+            const result = await bankDetailsSchema.updateOne({ _id: banckRecordId }, { $set: bankDetailsData});
             if (result) {
                 sendResponse(res, true, "Bank Details updated successfully", result);
             }
