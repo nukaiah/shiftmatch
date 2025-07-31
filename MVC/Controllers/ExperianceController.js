@@ -15,21 +15,21 @@ experienceRouter.post('/add', checkAuth, async (req, res, next) => {
 
         const recordId = req.body._id;
 
-        if(recordId===null||recordId===""){
+        if (recordId === null || recordId === "") {
             const result = await experienceSchema.create(experienceData);
-            if(result){
+            if (result) {
                 sendResponse(res, true, "Experiance added successfully", result);
             }
-            else{
+            else {
                 sendResponse(res, false, "Failed to add experiance", result);
             }
         }
-        else{
+        else {
             const result = await experienceSchema.updateOne({ _id: recordId }, { $set: experienceData });
-              if(result){
+            if (result) {
                 sendResponse(res, true, "Experiance updated successfully", result);
             }
-            else{
+            else {
                 sendResponse(res, false, "Failed to update experiance", result);
             }
         }
@@ -60,18 +60,18 @@ experienceRouter.get('/getAll', async (req, res, next) => {
 
 });
 
-experienceRouter.delete('/delete',checkAuth,async (req,res,next)=>{
+experienceRouter.delete('/delete', checkAuth, async (req, res, next) => {
     try {
-        var recordId  = req.body._id;
-        var result = await experienceSchema.deleteOne({_id:recordId});
-        if(result){
+        var recordId = req.body._id;
+        var result = await experienceSchema.deleteOne({ _id: recordId });
+        if (result) {
             sendResponse(res, true, "Experiance removed successfully", result);
         }
-        else{
+        else {
             sendResponse(res, false, "Failed to remove experiance", result);
         }
     } catch (error) {
-        
+        sendErrorResponse(res, false, error.message);
     }
 
 });
