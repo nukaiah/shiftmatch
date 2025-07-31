@@ -15,7 +15,7 @@ experienceRouter.post('/add', checkAuth, async (req, res, next) => {
 
         const recordId = req.body._id;
 
-        if (recordId === null || recordId === "") {
+        if (recordId === null || recordId === "" || recordId === undefined) {
             const result = await experienceSchema.create(experienceData);
             if (result) {
                 sendResponse(res, true, "Experiance added successfully", result);
