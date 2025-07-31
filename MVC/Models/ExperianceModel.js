@@ -5,10 +5,10 @@ const experienceSchema = new mongoose.Schema({
     company: { type: String, required: true },
     jobTitle: { type: String, required: true },
     startDate: { type: String, required: true },
-    endDate: { type: String }, // Optional, if currently working
-    isCurrentJob: { type: Boolean, default: false },
+    endDate: { type: String },
+    isCurrentJob: { type: String, enum: ["Yes", "No"]},
     description: { type: String },
-    skills: [{ type: String }] // List of skills gained in this experience
+    skills: [{ type: String }]
 }, { timestamps: true });
 
 
