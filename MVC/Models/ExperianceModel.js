@@ -7,8 +7,7 @@ const experienceSchema = new mongoose.Schema({
     startDate: { type: String, required: true },
     endDate: { type: String },
     isCurrentJob: { type: String, enum: ["Yes", "No"]},
-    description: { type: String },
-    skills: [{ type: String }]
+    skills: { type: String }
 }, { timestamps: true });
 
 
