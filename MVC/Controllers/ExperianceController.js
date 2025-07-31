@@ -48,6 +48,22 @@ experienceRouter.get('/getAll', async (req, res, next) => {
     const result = await experienceSchema.find();
     console.log(result);
 
-})
+});
+
+experienceRouter.delete('/delete',checkAuth,async (req,res,next)=>{
+    try {
+        var recordId  = req.body._id;
+        var result = await experienceSchema.deleteOne({_id:recordId});
+        if(result){
+            sendResponse(res, true, "Experiance removed successfully", result);
+        }
+        else{
+            sendResponse(res, false, "Failed to remove experiance", result);
+        }
+    } catch (error) {
+        
+    }
+
+});
 
 export default experienceRouter;

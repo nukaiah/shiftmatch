@@ -26,17 +26,16 @@ bankDetailsRouter.post('/add', checkAuth, async (req, res, next) => {
         else {
             const result = await bankDetailsSchema.updateOne({ _id: banckRecordId }, { $set: req.body });
             if (result) {
-                sendResponse(res, true, "Bank Details added successfully", result);
+                sendResponse(res, true, "Bank Details updated successfully", result);
             }
             else {
-                sendResponse(res, false, "Failed to add Bank Details", result);
+                sendResponse(res, false, "Failed to update Bank Details", result);
             }
         }
     } catch (error) {
         sendErrorResponse(res, false, error.message);
     }
 });
-
 
 
 bankDetailsRouter.post('/getById', checkAuth, async (req, res, next) => {
