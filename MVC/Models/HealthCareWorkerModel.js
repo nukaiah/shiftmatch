@@ -8,7 +8,7 @@ const healthCareWorkerSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true, lowercase: true, set: encrypt, get: decrypt },
         mobileNumber: { type: String, required: true, unique: true, trim: true, set: encrypt, get: decrypt },
         password: { type: String, set: encrypt },
-        dob: { type: Date },
+        dob: { type: String },
         gender: { type: String, enum: ["Male", "Female", "Other"]},
         imageUrl: { type: String },
         verificationStatus: { type: String, required: true, enum: ["Pending", "Verified"], default: "Pending" },
