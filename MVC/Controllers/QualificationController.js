@@ -22,8 +22,8 @@ qualificationRouter.post('/add', checkAuth, async (req, res, next) => {
                 sendResponse(res, false, "Failed to add qualification", result);
             }
         }
-        else{
-            const result = await qualificationSchema.updateOne({"_id":recordId},{$set:qualificationData});
+        else {
+            const result = await qualificationSchema.updateOne({ "_id": recordId }, { $set: qualificationData });
             if (result) {
                 sendResponse(res, true, "Qualification updated successfully", result);
             }
@@ -37,6 +37,20 @@ qualificationRouter.post('/add', checkAuth, async (req, res, next) => {
     }
 });
 
+qualificationRouter.delete("/delete", checkAuth, async (req, res, next) => {
+    try {
+        var recordId = req.body._id;
+        var result = await qualificationSchema.deleteOne({ "_id": recordId });
+        if (result) {
+            sendResponse(res, true, "Qualification deleted successfully", result);
+        }
+        else {
+            sendResponse(res, true, "Failed to delete Qualification", result);
+        }
+    } catch (error) {
+        sendErrorResponse(res, false, error.message);
+    }
+});
 
 qualificationRouter.post('/getById', checkAuth, async (req, res, next) => {
     try {
