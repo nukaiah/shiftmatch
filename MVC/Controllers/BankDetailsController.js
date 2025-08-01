@@ -13,7 +13,7 @@ bankDetailsRouter.post('/add', checkAuth, async (req, res, next) => {
         const bankDetailsData = { ...userId, ...bodyData };
         console.log(req.body._id);
         var banckRecordId = req.body._id;
-        if (banckRecordId === null || banckRecordId === "") {
+        if (banckRecordId === null || banckRecordId === ""|| banckRecordId===undefined) {
             const result = await bankDetailsSchema.create(bankDetailsData);
             if (result) {
                 sendResponse(res, true, "Bank Details added successfully", result);

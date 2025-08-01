@@ -13,7 +13,7 @@ qualificationRouter.post('/add', checkAuth, async (req, res, next) => {
         const bodyData = req.body;
         const qualificationData = { ...userId, ...bodyData };
         const recordId = req.body._id;
-        if (recordId === null || recordId === "") {
+        if (recordId === null || recordId === ""|| recordId===undefined) {
             const result = await qualificationSchema.create(qualificationData);
             if (result) {
                 sendResponse(res, true, "Qualification added successfully", result);
